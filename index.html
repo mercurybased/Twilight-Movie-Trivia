@@ -1,25 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
-<!-- container for high scores -->
+<html>
+    <head>
+        <title>Timed Test</title>
+        <link rel="stylesheet" href="./assets/style.css">
+    </head>
+    <body>
+        <h1>Timed Twilight Movie Trivia</h1>
+        <p>Remaining time: <span id="timer"></span></p>
+        <section class="high-scores"></section>
+    <form id="test-form">
 
+        <div class="question-one">
+            <h2>While the books are based in Forks, WA, where is the first movie filmed?</h2>
+            <input type="radio" name="q1" value="a" data-correct="false">Portland, Maine<br>
+            <input type="radio" name="q1" value="b" data-correct="true">Portland, Oregon<br>
+            <input type="radio" name="q1" value="c" data-correct="false">Vancouver, BC<br>
+        </div>
+
+      <div class="question-two">
+          <h2>Who was the first casting choice for the lead role of Edward Cullen?</h2>
+          <input type="radio" name="q2" value="a" data-correct="false">Robert Pattinson<br>
+          <input type="radio" name="q2" value="b" data-correct="false">Chris Pine<br>
+          <input type="radio" name="q2" value="c" data-correct="true">Henry Cavill<br>
+        </div>
+
+    <div class="question-three">
+        <h2>What does Edward say to Bella before he takes her on a trip through the trees?</h2>
+        <input type="radio" name="q3" value="a" data-correct="true">"Better hold on tight, spider monkey"<br>
+        <input type="radio" name="q3" value="b" data-correct="false">"Don't worry, you won't fall"<br>
+        <input type="radio" name="q3" value="c" data-correct="false">"I love you"<br>
+    </div>
+
+    <div class="question-four"></div>
+    <div class="question-five"></div>
+      
+      <button type="submit" id="submit-btn">Submit</button>
+    </form>
+    
+    <script src="./assets/script.js"></script>
+  </body>
+</html>
+
+<!-- container for high scores -->
 <!-- container for the countdown timer -->
 
 <!-- start button -->
+<!-- line 28 -->
 
 <!-- container for the quiz -->
-<!--    container for the question -->
-<!--    container for the answers -->
-<!--        continer for each answer -->
+
+    <!--    container for the question -->
+
+    <!--    container for the answers -->
+
+<!--        container for each answer -->
+
 
 <!-- end screen -->
 <!--    container for you won vs you scored 0s -->

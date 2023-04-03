@@ -1,4 +1,62 @@
+const testForm = document.querySelector('#test-form');
+const timerEl = document.querySelector('#timer');
+const submitBtn = document.querySelector('#submit-btn');
+
+
+let timeLeft = 10000; 
+
+function updateTime() {
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+  
+  timerEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  
+  if (timeLeft === 0) {
+    clearInterval(timer);
+    submitBtn.disabled = true;
+    displayResults();
+  } else {
+    timeLeft--;
+  }
+}
+
+const timer = setInterval(updateTime)
+
+function displayResults() {
+    var questions = document.querySelectorAll('input[type="radio"]');
+    console.log(questions)
+    var correctAnswers = 0;
+
+    
+    questions.forEach(question => {
+    //   var radios = question.querySelectorAll('input[type="radio"]');
+    
+        if (question.checked && question.getAttribute('data-correct') === 'true') {
+          correctAnswers++;
+          console.log(correctAnswers);
+       };
+    });
+    
+    const totalQuestions = 3;
+    const score = Math.round((correctAnswers / totalQuestions) * 100);
+    
+    testForm.innerHTML = `
+      <h1>Results</h1>
+      <p>You scored ${score}%</p>
+    `;
+  }
+  
+
+  submitBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    clearInterval(timer);
+    submitBtn.disabled = true;
+    displayResults();
+  });
+  
+
 // define all questions and answers
+
 
 // define variable for tracking
 //      track time
