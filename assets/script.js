@@ -1,60 +1,53 @@
 const testForm = document.querySelector('#test-form');
 const timerEl = document.querySelector('#timer');
 const submitBtn = document.querySelector('#submit-btn');
+const startBtn = document.querySelector("#start-button");
+var questionOne = document.querySelector("#question-one");
+var questionTwo = document.querySelector("#question-two")
+var questionThree = document.querySelector("#question-three")
+var questionFour = document.querySelector("#question-four")
+var questionFive = document.querySelector("#question-five")
 
 
-let timeLeft = 10000; 
+let timeLeft = 10000;
 
-function updateTime() {
-  const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft % 60;
-  
-  timerEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-  
-  if (timeLeft === 0) {
-    clearInterval(timer);
-    submitBtn.disabled = true;
-    displayResults();
-  } else {
-    timeLeft--;
-  }
+
+function startQuiz(){
+    questionOne.classList.remove("hidden");       
 }
-
-const timer = setInterval(updateTime)
+startBtn.addEventListener('click', startQuiz);
 
 function displayResults() {
     var questions = document.querySelectorAll('input[type="radio"]');
     console.log(questions)
     var correctAnswers = 0;
-
+    
     
     questions.forEach(question => {
-    //   var radios = question.querySelectorAll('input[type="radio"]');
-    
+          var radios = question.querySelectorAll('input[type="radio"]');
+        
         if (question.checked && question.getAttribute('data-correct') === 'true') {
-          correctAnswers++;
-          console.log(correctAnswers);
-       };
+            correctAnswers++;
+            console.log(correctAnswers);
+        };
     });
     
-    const totalQuestions = 3;
+    const totalQuestions = 5;
     const score = Math.round((correctAnswers / totalQuestions) * 100);
     
     testForm.innerHTML = `
-      <h1>Results</h1>
-      <p>You scored ${score}%</p>
+    <h1>Results</h1>
+    <p>You scored ${score}%</p>
     `;
-  }
-  
+}
 
-  submitBtn.addEventListener('click', (event) => {
+
+submitBtn.addEventListener('click', (event) => {
     event.preventDefault();
     clearInterval(timer);
     submitBtn.disabled = true;
     displayResults();
-  });
-  
-
+});
 // define all questions and answers
 
 
