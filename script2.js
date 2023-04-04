@@ -5,8 +5,10 @@ var time = 60;
 var questions = [
     {
       title: 'While the books are based in Forks, WA, where is the first movie filmed?',
-      choices: ['Portland, OR', 'Vancouver, B.C.', 'Portland, ME', 'Dallas, TX'],
-      answer: 'Portland, OR',
+      correctAns: 'Portland, OR',
+      ans2: 'Vancouver, B.C.',
+      ans3: 'Portland, ME',
+      ans4: 'Dallas, TX',
     },
     {
       title: 'Who was the first casting choice for the lead role of Edward Cullen?',

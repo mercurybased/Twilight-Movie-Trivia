@@ -7,33 +7,106 @@ var questionTwo = document.querySelector("#question-two")
 var questionThree = document.querySelector("#question-three")
 var questionFour = document.querySelector("#question-four")
 var questionFive = document.querySelector("#question-five")
+var finalQuestion = document.querySelector("#question-five")
+var questionCont = document.querySelector("#test-form")
+var currentQuestion = 0
+var score = 0
 
 
-let timeLeft = 10000;
+let timeLeft = 100;
 
+// function startTimer() {
+//     var timeLeft = 100;
+  
+//     var timeInterval = setInterval(function () {
+//       if (timeLeft > 1) {
+//         timerEl.textContent = timeLeft + ' seconds remaining';
+//         timeLeft--;
+//       } else if (timeLeft === 1) {
+//         timerEl.textContent = timeLeft + ' second remaining';
+//         timeLeft--;
+//       } else {
+//         timerEl.textContent = '';
+//         clearInterval(timeInterval);
+//         calculateScore();
+//       }
+//     }, 1000);
+//   }
+
+function startTimer() {
+    // Sets interval in variable
+    var timerInterval = setInterval(function() {
+      timeLeft--;
+      timerEl.textContent = timeLeft + " seconds left";
+  
+      if(timeLeft === 0) {
+        // Stops execution of action at set interval
+        clearInterval(timerInterval);
+        // Calls function
+        calculateScore();
+      }
+  
+    }, 1000);
+};
+startTimer();
 
 function startQuiz(){
-    questionOne.classList.remove("hidden");       
+    questionCont.classList.remove("hidden")
+    questionOne.classList.remove("hidden"); 
+    startTimer()      
 }
 startBtn.addEventListener('click', startQuiz);
 
-function displayResults() {
+
+function nextQuestion(){
+    // check if were at last question, if yes, call calculateScore and return
+    if (currentQuestion === 1){
+        questionOne.classList.add("hidden")
+        questionTwo.classList.remove('hidden')
+    }
+    if (currentQuestion === 2){
+        questionTwo.classList.add("hidden")
+        questionThree.classList.remove("hidden")
+    }
+    if (currentQuestion === 3){
+        questionThree.classList.add("hidden")
+        questionFour.classList.remove("hidden")
+    }
+    if (currentQuestion === 4){
+        questionFour.classList.add("hidden")
+        questionFive.classList.remove("hidden")
+    }
+    if (currentQuestion === 5){
+        questionFive.classList.add("hidden")
+        questionCont.classList.add("hidden")
+    }
+    currentQuestion++
+}
+
+submitBtn.addEventListener('click', nextQuestion)
+
+
+function calculateScore() {
     var questions = document.querySelectorAll('input[type="radio"]');
     console.log(questions)
     var correctAnswers = 0;
     
     
     questions.forEach(question => {
-          var radios = question.querySelectorAll('input[type="radio"]');
         
         if (question.checked && question.getAttribute('data-correct') === 'true') {
             correctAnswers++;
             console.log(correctAnswers);
-        };
+        } else {
+            // deduct time from timeleft
+            timeLeft-=10
+        }
     });
     
+
+    clearInterval(timer);
     const totalQuestions = 5;
-    const score = Math.round((correctAnswers / totalQuestions) * 100);
+    const score = timeLeft
     
     testForm.innerHTML = `
     <h1>Results</h1>
@@ -41,13 +114,24 @@ function displayResults() {
     `;
 }
 
+function getInitials () {
+    // hide everything
+    // add input field for getting initials
+    // when initials are submitted, save score to ls
+    // // 1. get savedscores 2. add new score to savedscores array 3. setItem (save) array to ls
+    // hide input field
+    // show leaderboard
+}
 
-submitBtn.addEventListener('click', (event) => {
-    event.preventDefault();
-    clearInterval(timer);
-    submitBtn.disabled = true;
-    displayResults();
-});
+localStorage.getItem("score")
+localStorage.setItem("score", score)
+
+
+// submitBtn.addEventListener('click', (event) => {
+//     event.preventDefault();
+//     submitBtn.disabled = true;
+//     displayResults();
+// });
 // define all questions and answers
 
 
