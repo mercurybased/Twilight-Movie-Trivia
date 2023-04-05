@@ -2,6 +2,17 @@ body {
     font-family: Arial, sans-serif;
     background-color: #a04242;
   }
+  header {
+    background-color: crimson;
+  }
+  header h1{
+    background-color: crimson;
+    margin-top: 0;
+    padding-top: 0;
+  }
+  header p {
+    text-align: center;
+  }
   
   h1 {
     text-align: center;
@@ -15,7 +26,7 @@ body {
   form {
     margin: 0 auto;
     max-width: 500px;
-    background-color: #fff;
+    background-color: #f8e5af;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -25,7 +36,8 @@ body {
     margin-left: 10px;
   }
   
-  #submit-btn {
+  
+  #submit-btn, #start-button {
     display:block;
     margin: 20px auto;
     padding: 10px;
@@ -33,17 +45,12 @@ body {
     color: #fff;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
+    cursor:cell;
   }
   
   #submit-btn:disabled {
     background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  #timer {
-    background-color: bisque;
-    font-weight: bold;
+    cursor:alias;
   }
   
   .hidden {

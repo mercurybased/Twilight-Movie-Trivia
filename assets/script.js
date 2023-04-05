@@ -11,25 +11,24 @@ var questionFour = document.querySelector("#question-four")
 var questionFive = document.querySelector("#question-five")
 var finalQuestion = document.querySelector("#question-five")
 var questionCont = document.querySelector("#test-form")
+var results = document.querySelector("#results")
 var currentQuestion = 0
 var score = 0
 
 let timeLeft = 100;
+var timerInterval = 0
 
 // function startTimer() {
-//     timerId = setInterval(function () {
+//     timerInterval = setInterval(function () {
 //       if (time > 1) {
-//         timer.textContent = time;
-//         time--;
-//       } else if (time <= 0) {
+//         timerEl.textContent = timeLeft;
+//         timeLeft--;
+//       } else if (timeLeft <= 0) {
 //         quizEnd();
 //       }
 //     }, 1000);
-//   }
-//   function quizEnd() {
-//     // stop timer
+//       // stop timer
 //     clearInterval(timerId);
-//     saveScores ();
 //   }
   
 
@@ -37,9 +36,8 @@ function startTimer() {
     // Sets interval in variable
     var timerInterval = setInterval(function() {
       timeLeft--;
-      timerEl.textContent = timeLeft + " seconds left";
-  
-      if(timeLeft === total) {
+      timerEl.textContent = timeLeft + " seconds left";  
+      if(timeLeft === 0 || currentQuestion === 6){
         // Stops execution of action at set interval
         clearInterval(timerInterval);
         // Calls function
@@ -47,7 +45,7 @@ function startTimer() {
       }
   
     }, 1000);
-};
+}
 
 
 function startQuiz(){
@@ -98,7 +96,7 @@ function calculateScore() {
             correctAnswers++;
             console.log(correctAnswers);
         } 
-        // if (question.getAttribute('data-correct') === 'false'){
+        // if (question.checked && question.getAttribute('data-correct') === 'false'){
         //     wrongAnswers--;
         //     timeLeft-=10
         //     }
@@ -108,7 +106,7 @@ function calculateScore() {
 
     clearInterval(timer);
     const totalQuestions = 5;
-    const score = timeLeft
+    const score = Math.round((correctAnswers / totalQuestions) * 100);
     
     testForm.innerHTML = `
     <h1>Results</h1>
@@ -121,15 +119,15 @@ function calculateScore() {
 //     finalScoreEl.textContent = score;
 //   }
 
-// function getInitials () {
-//     // hide everything
-//     questionCont.classList.add("hidden")
-//     // add input field for getting initials
-//     // when initials are submitted, save score to ls
-//     // // 1. get savedscores 2. add new score to savedscores array 3. setItem (save) array to ls
-//     // hide input field
-//     // show leaderboard
-// }
+function getInitials () {
+    // hide everything
+    questionCont.classList.add("hidden")
+    // add input field for getting initials
+    // when initials are submitted, save score to ls
+    // // 1. get savedscores 2. add new score to savedscores array 3. setItem (save) array to ls
+    // hide input field
+    // show leaderboard
+}
 
 localStorage.getItem("score")
 localStorage.setItem("score", score)

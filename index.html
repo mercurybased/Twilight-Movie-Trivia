@@ -5,10 +5,12 @@
     <link rel="stylesheet" href="./assets/style.css" />
   </head>
   <body>
-    <h1>Timed Twilight Movie Trivia</h1>
-    <p>Remaining time: <span id="timer"></span></p>
+    <header>
+        <h1>Timed Twilight Movie Trivia</h1>       
+        <p>Remaining time: <span id="timer"></span></p>
     <section class="high-scores"></section>
-    <div>
+</header>
+    <div class="welcome-rules">
       <h1>Welcome to this timed quiz!</h1>
       <p>Rules go here</p>
       <button id="start-button">Start Quiz</button>
@@ -86,13 +88,14 @@
         </div>
       </div>
     </form>
-    <div>
+    <button type="submit" id="submit-btn">Submit</button>
+    <div id="results" class="results hidden">
+        <h1>Results</h1>
         <!-- input for initials -->
     </div>
     <div>
-        <section class="container hidden" id="high-scores">You scored: <span id="final-score"></span></section>
+        <!-- leaderboard -->
     </div>
-    <button type="submit" id="submit-btn">Submit</button>
 
     <script src="./assets/script.js"></script>
   </body>
