@@ -1,5 +1,7 @@
 const testForm = document.querySelector('#test-form');
 const timerEl = document.querySelector('#timer');
+var highScore = document.querySelector("#high-scores")
+var finalScore = document.querySelector("#final-score")
 const submitBtn = document.querySelector('#submit-btn');
 const startBtn = document.querySelector("#start-button");
 var questionOne = document.querySelector("#question-one");
@@ -12,26 +14,24 @@ var questionCont = document.querySelector("#test-form")
 var currentQuestion = 0
 var score = 0
 
-
 let timeLeft = 100;
 
 // function startTimer() {
-//     var timeLeft = 100;
-  
-//     var timeInterval = setInterval(function () {
-//       if (timeLeft > 1) {
-//         timerEl.textContent = timeLeft + ' seconds remaining';
-//         timeLeft--;
-//       } else if (timeLeft === 1) {
-//         timerEl.textContent = timeLeft + ' second remaining';
-//         timeLeft--;
-//       } else {
-//         timerEl.textContent = '';
-//         clearInterval(timeInterval);
-//         calculateScore();
+//     timerId = setInterval(function () {
+//       if (time > 1) {
+//         timer.textContent = time;
+//         time--;
+//       } else if (time <= 0) {
+//         quizEnd();
 //       }
 //     }, 1000);
 //   }
+//   function quizEnd() {
+//     // stop timer
+//     clearInterval(timerId);
+//     saveScores ();
+//   }
+  
 
 function startTimer() {
     // Sets interval in variable
@@ -39,7 +39,7 @@ function startTimer() {
       timeLeft--;
       timerEl.textContent = timeLeft + " seconds left";
   
-      if(timeLeft === 0) {
+      if(timeLeft === total) {
         // Stops execution of action at set interval
         clearInterval(timerInterval);
         // Calls function
@@ -48,15 +48,15 @@ function startTimer() {
   
     }, 1000);
 };
-startTimer();
+
 
 function startQuiz(){
     questionCont.classList.remove("hidden")
     questionOne.classList.remove("hidden"); 
     startTimer()      
 }
-startBtn.addEventListener('click', startQuiz);
 
+startBtn.addEventListener('click', startQuiz);
 
 function nextQuestion(){
     // check if were at last question, if yes, call calculateScore and return
@@ -78,7 +78,6 @@ function nextQuestion(){
     }
     if (currentQuestion === 5){
         questionFive.classList.add("hidden")
-        questionCont.classList.add("hidden")
     }
     currentQuestion++
 }
@@ -90,6 +89,7 @@ function calculateScore() {
     var questions = document.querySelectorAll('input[type="radio"]');
     console.log(questions)
     var correctAnswers = 0;
+    // var wrongAnswers = 0;
     
     
     questions.forEach(question => {
@@ -97,11 +97,13 @@ function calculateScore() {
         if (question.checked && question.getAttribute('data-correct') === 'true') {
             correctAnswers++;
             console.log(correctAnswers);
-        } else {
+        } 
+        // if (question.getAttribute('data-correct') === 'false'){
+        //     wrongAnswers--;
+        //     timeLeft-=10
+        //     }
             // deduct time from timeleft
-            timeLeft-=10
-        }
-    });
+        });
     
 
     clearInterval(timer);
@@ -114,24 +116,29 @@ function calculateScore() {
     `;
 }
 
-function getInitials () {
-    // hide everything
-    // add input field for getting initials
-    // when initials are submitted, save score to ls
-    // // 1. get savedscores 2. add new score to savedscores array 3. setItem (save) array to ls
-    // hide input field
-    // show leaderboard
-}
+// function highScoreFun(){
+//     highScore.setAttribute("class", "container")
+//     finalScoreEl.textContent = score;
+//   }
+
+// function getInitials () {
+//     // hide everything
+//     questionCont.classList.add("hidden")
+//     // add input field for getting initials
+//     // when initials are submitted, save score to ls
+//     // // 1. get savedscores 2. add new score to savedscores array 3. setItem (save) array to ls
+//     // hide input field
+//     // show leaderboard
+// }
 
 localStorage.getItem("score")
 localStorage.setItem("score", score)
 
 
-// submitBtn.addEventListener('click', (event) => {
-//     event.preventDefault();
-//     submitBtn.disabled = true;
-//     displayResults();
-// });
+submitBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    displayResults();
+});
 // define all questions and answers
 
 
@@ -215,3 +222,19 @@ localStorage.setItem("score", score)
 //      click answers
 //      click save score
 //      keyups
+
+// Alivia's code for quiz ending
+// function questionClick(event) {
+//     // result right or wrong
+//     answer = event.target;
+//     console.log("click event is working")
+//     // move to next question
+//     currentQuestionIndex++;
+//     // checkAnswer();
+//     // check if we've run out of questions
+//     if (time <= 0 || currentQuestionIndex === questions.length) {
+//       quizEnd();
+//     } else {
+//       getQuestion();
+//     }
+//   }
