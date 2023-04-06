@@ -4,6 +4,7 @@ var highScore = document.querySelector("#high-scores")
 var finalScore = document.querySelector("#final-score")
 const submitBtn = document.querySelector('#submit-btn');
 const startBtn = document.querySelector("#start-button");
+const btnSave = document.querySelector("#save-initials");
 var questionOne = document.querySelector("#question-one");
 var questionTwo = document.querySelector("#question-two")
 var questionThree = document.querySelector("#question-three")
@@ -12,11 +13,14 @@ var questionFive = document.querySelector("#question-five")
 var finalQuestion = document.querySelector("#question-five")
 var questionCont = document.querySelector("#test-form")
 var results = document.querySelector("#results")
+var initials = document.querySelector("#initials")
+var board = document.querySelector("#board")
+var userList = document.querySelector("#user-list")
 var currentQuestion = 0
 var score = 0
 
 let timeLeft = 100;
-var timerInterval = 0
+var timerInterval
 
 // function startTimer() {
 //     timerInterval = setInterval(function () {
@@ -34,19 +38,13 @@ var timerInterval = 0
 
 function startTimer() {
     // Sets interval in variable
-    var timerInterval = setInterval(function() {
+    timerInterval = setInterval(function() {
       timeLeft--;
       timerEl.textContent = timeLeft + " seconds left";  
-      if(timeLeft === 0 || currentQuestion === 6){
-        // Stops execution of action at set interval
-        clearInterval(timerInterval);
-        // Calls function
-        calculateScore();
-      }
-  
     }, 1000);
+    
 }
-
+console.log("question", currentQuestion)
 
 function startQuiz(){
     questionCont.classList.remove("hidden")
@@ -57,7 +55,16 @@ function startQuiz(){
 startBtn.addEventListener('click', startQuiz);
 
 function nextQuestion(){
-    // check if were at last question, if yes, call calculateScore and return
+    if(timeLeft === 0 || currentQuestion === 5){
+      // Stops execution of action at set interval
+      clearInterval(timerInterval);
+      submitBtn.classList.add("hidden")
+      results.classList.remove("hidden")
+      // Calls function
+    //   calculateScore();
+    }
+    calculateScore()
+   //
     if (currentQuestion === 1){
         questionOne.classList.add("hidden")
         questionTwo.classList.remove('hidden')
@@ -87,7 +94,7 @@ function calculateScore() {
     var questions = document.querySelectorAll('input[type="radio"]');
     console.log(questions)
     var correctAnswers = 0;
-    // var wrongAnswers = 0;
+    var wrongAnswers = 0;
     
     
     questions.forEach(question => {
@@ -95,48 +102,80 @@ function calculateScore() {
         if (question.checked && question.getAttribute('data-correct') === 'true') {
             correctAnswers++;
             console.log(correctAnswers);
-        } 
-        // if (question.checked && question.getAttribute('data-correct') === 'false'){
-        //     wrongAnswers--;
-        //     timeLeft-=10
-        //     }
+        }else
+
+        if (question.checked && question.getAttribute('data-correct') === 'false'){
+            wrongAnswers--;
+            timeLeft-=10
+            console.log('wrong')
+            }
             // deduct time from timeleft
         });
     
 
-    clearInterval(timer);
-    const totalQuestions = 5;
-    const score = Math.round((correctAnswers / totalQuestions) * 100);
+    // clearInterval(timer);
+    // const totalQuestions = 5;
+    // const score = timeLeft;
     
-    testForm.innerHTML = `
-    <h1>Results</h1>
-    <p>You scored ${score}%</p>
-    `;
+//     testForm.innerHTML = `
+//     <h1>Results</h1>
+//     <p>You scored ${score}%</p>
+//     `;
 }
 
+function saveInitials() {
+    var userInitials = initials.value.trim()
+    var highScores =
+    JSON.parse(window.localStorage.getItem('high-scores')) || [];
+
+    var newScore = {
+        score: timeLeft,
+        initials: userInitials,
+    }
+console.log("new-score", newScore)
+highScores.push(newScore)
+localStorage.setItem("high-scores", JSON.stringify(highScores))
+
+board.classList.remove("hide")
+// sort highscores by score property in descending order
+highScores.sort(function (a, b) {
+    return b.score - a.score;
+  });
+
+  for (var i = 0; i < highScores.length; i += 1) {
+    // create li tag for each high score
+    var liTag = document.createElement('li');
+    liTag.textContent = highScores[i].initials + ' - ' + highScores[i].score;
+
+    // display on page
+    userList.appendChild(liTag);
+  }
+
+}
+btnSave.addEventListener('click', saveInitials)
 // function highScoreFun(){
 //     highScore.setAttribute("class", "container")
 //     finalScoreEl.textContent = score;
 //   }
 
-function getInitials () {
+// function getInitials () {
     // hide everything
-    questionCont.classList.add("hidden")
-    // add input field for getting initials
-    // when initials are submitted, save score to ls
-    // // 1. get savedscores 2. add new score to savedscores array 3. setItem (save) array to ls
-    // hide input field
-    // show leaderboard
-}
+//     questionCont.classList.add("hidden")
+//     // add input field for getting initials
+//     // when initials are submitted, save score to ls
+//     // // 1. get savedscores 2. add new score to savedscores array 3. setItem (save) array to ls
+//     // hide input field
+//     // show leaderboard
+// }
 
-localStorage.getItem("score")
-localStorage.setItem("score", score)
+// localStorage.getItem("score")
+// localStorage.setItem("score", score)
 
 
-submitBtn.addEventListener('click', (event) => {
-    event.preventDefault();
-    displayResults();
-});
+// submitBtn.addEventListener('click', (event) => {
+//     event.preventDefault();
+    // displayResults();
+// });
 // define all questions and answers
 
 
